@@ -1,0 +1,31 @@
+{
+    "name": "pmjones/throwable-properties",
+    "type": "library",
+    "description": "Copies properties of a Throwable to a serializable object.",
+    "keywords": [ "throwable", "exception", "json", "encode", "serialize" ],
+    "homepage": "http://github.com/pmjones/throwable-properties",
+    "license": "MIT",
+    "require": {
+        "php": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "pmjones\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "pmjones\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "pds/skeleton": "^1.0",
+        "phpunit/phpunit": "^9.0",
+        "phpstan/phpstan": "^1.0"
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit",
+        "stan": "./vendor/bin/phpstan analyze --memory-limit=1G -c phpstan.neon src",
+        "testan": "composer test && composer stan"
+    }
+}
