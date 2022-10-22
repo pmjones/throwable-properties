@@ -1,5 +1,12 @@
 # ThrowableProperties
 
+> This package is installable via [Composer](https://getcomposer.org) as
+> [pmjones/throwable-properties](https://packagist.org/packages/pmjones/throwable-properties).
+> 
+> ```
+> composer require pmjones/throwable-properties ^1.0
+> ```
+
 When using `json_encode()` with _Throwable_ objects, such as _Error_ and
 _Exception_, the result is an empty JSON object.
 
