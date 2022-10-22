@@ -1,7 +1,7 @@
 # ThrowableProperties
 
 > This package is installable via Composer as
-> [pmjones/throwable-properties](https://https://packagist.org/packages/pmjones/throwable-properties).
+> [pmjones/throwable-properties](https://packagist.org/packages/pmjones/throwable-properties).
 > 
 > ```
 > composer require pmjones/throwable-properties ^1.0
