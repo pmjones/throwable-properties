@@ -1,6 +1,6 @@
 # ThrowableProperties
 
-> This package is installable via Composer as
+> This package is installable via [Composer](https://getcomposer.org) as
 > [pmjones/throwable-properties](https://packagist.org/packages/pmjones/throwable-properties).
 > 
 > ```
