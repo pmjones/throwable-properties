@@ -39,8 +39,8 @@ class ThrowableProperties implements JsonSerializable, Stringable
 
     protected ?ThrowableProperties $previous;
 
-	public function __construct(Throwable $e)
-	{
+    public function __construct(Throwable $e)
+    {
         $this->class = get_class($e);
         $this->message = $e->getMessage();
         $this->string = (string) $e;
@@ -52,7 +52,7 @@ class ThrowableProperties implements JsonSerializable, Stringable
         $this->previous = $e->getPrevious() === null
             ? null
             : new self($e->getPrevious());
-	}
+    }
 
     public function __get(string $prop) : mixed
     {
