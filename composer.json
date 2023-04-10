@@ -6,7 +6,7 @@
     "homepage": "http://github.com/pmjones/throwable-properties",
     "license": "MIT",
     "require": {
-        "php": "^8.0"
+        "php": "^8.1"
     },
     "autoload": {
         "psr-4": {
@@ -19,13 +19,14 @@
         }
     },
     "require-dev": {
+        "pds/composer-script-names": "^1.0",
         "pds/skeleton": "^1.0",
-        "phpunit/phpunit": "^9.0",
+        "phpunit/phpunit": "^10.0",
         "phpstan/phpstan": "^1.0"
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit",
-        "stan": "./vendor/bin/phpstan analyze --memory-limit=1G -c phpstan.neon src",
-        "testan": "composer test && composer stan"
+        "analyze": "./vendor/bin/phpstan analyze",
+        "check": "composer test && composer analyze",
+        "test": "./vendor/bin/phpunit"
     }
 }

@@ -6,38 +6,43 @@ use ReflectionClass;
 use Stringable;
 use Throwable;
 
-/**
- * @property-read string $class;
- * @property-read string $message;
- * @property-read string $string;
- * @property-read int $code;
- * @property-read string $file;
- * @property-read int $line;
- * @property-read array<string, mixed> $other;
- * @property-read array<int, mixed> $trace;
- * @property-read ?ThrowableProperties $previous;
- */
 class ThrowableProperties implements JsonSerializable, Stringable
 {
-    protected string $class;
+    /**
+     * @var class-string
+     */
+    public readonly string $class;
 
-    protected string $message;
+    public readonly string $message;
 
-    protected string $string;
+    public readonly string $string;
 
-    protected int $code;
+    public readonly int $code;
 
-    protected string $file;
+    public readonly string $file;
 
-    protected int $line;
+    public readonly int $line;
 
-    /** @var array<string, mixed> */
-    protected array $other;
+    /**
+     * @var array<string, mixed>
+     */
+    public readonly array $other;
 
-    /** @var array<int, mixed> */
-    protected array $trace;
+    /**
+     * @var array<
+     *  int,
+     *  array{
+     *      file: string,
+     *      line: int,
+     *      function: string,
+     *      class: string,
+     *      type: string
+     *  }
+     * >
+     */
+    public readonly array $trace;
 
-    protected ?ThrowableProperties $previous;
+    public readonly ?ThrowableProperties $previous;
 
     public function __construct(Throwable $e)
     {
@@ -64,18 +69,58 @@ class ThrowableProperties implements JsonSerializable, Stringable
         return $this->string;
     }
 
-    public function jsonSerialize() : mixed
+    /**
+     * @return array{
+     *  class: string,
+     *  message: string,
+     *  string: string,
+     *  code: int,
+     *  file: string,
+     *  line: int,
+     *  other: mixed[],
+     *  trace: string[],
+     *  previous: ThrowableProperties|null
+     * }
+     */
+    public function jsonSerialize() : array
     {
         return $this->asArray();
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * @return array{
+     *  class: string,
+     *  message: string,
+     *  string: string,
+     *  code: int,
+     *  file: string,
+     *  line: int,
+     *  other: mixed[],
+     *  trace: string[],
+     *  previous: ThrowableProperties|null
+     * }
+     */
     public function asArray() : array
     {
+        /**
+         * @var array{
+         *  class: string,
+         *  message: string,
+         *  string: string,
+         *  code: int,
+         *  file: string,
+         *  line: int,
+         *  other: mixed[],
+         *  trace: string[],
+         *  previous: ThrowableProperties|null
+         * }
+         */
         return get_object_vars($this);
     }
 
-    /** @return array<string, mixed> */
+    /**
+     * @return array<string, mixed>
+     */
     protected function getOther(Throwable $e) : array
     {
         $other = [];
@@ -106,11 +151,32 @@ class ThrowableProperties implements JsonSerializable, Stringable
         return $other;
     }
 
-    /** @return array<int, mixed> */
+    /**
+     * @return array<
+     *  int,
+     *  array{
+     *      file: string,
+     *      line: int,
+     *      function: string,
+     *      class: string,
+     *      type: string
+     *  }
+     * >
+     */
     protected function getTrace(Throwable $e) : array
     {
         $trace = [];
 
+        /**
+         * @var array{
+         *  file: string,
+         *  line: int,
+         *  function: string,
+         *  class: string,
+         *  type: string,
+         *  args: mixed[]
+         * } $info
+         */
         foreach ($e->getTrace() as $info) {
             unset($info['args']);
             $trace[] = $info;
