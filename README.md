@@ -103,5 +103,4 @@ Cees-Jan Kiewet has a comparable offering called
 using functions to encode a _Throwable_ instead of a standalone DTO. It works
 on PHP 7.4 and later, whereas this library works only on PHP 8.1 and later.
 
-Eboreum has a related package called [eboreum/exceptional]
-(https://github.com/eboreum/exceptional).
+Eboreum has a related package called [eboreum/exceptional](https://github.com/eboreum/exceptional).
