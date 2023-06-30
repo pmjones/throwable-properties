@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
 <phpunit
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
-  bootstrap="phpunit.php"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd"
+    bootstrap="phpunit.php"
 >
-  <coverage>
-    <include>
-      <directory suffix=".php">./src</directory>
-    </include>
-  </coverage>
+  <coverage/>
   <testsuites>
     <testsuite name="pmjones/throwable-properties">
       <directory>tests/</directory>
     </testsuite>
   </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </source>
 </phpunit>
