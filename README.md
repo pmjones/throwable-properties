@@ -4,7 +4,7 @@
 > [pmjones/throwable-properties](https://packagist.org/packages/pmjones/throwable-properties).
 > 
 > ```
-> composer require pmjones/throwable-properties ^1.0
+> composer require pmjones/throwable-properties ^2.0
 > ```
 
 When using `json_encode()` with _Throwable_ objects, such as _Error_ and
@@ -101,4 +101,4 @@ class MyException extends \Exception implements JsonSerializable
 Cees-Jan Kiewet has a comparable offering called
 [php-json-throwable](https://github.com/WyriHaximus/php-json-throwable),
 using functions to encode a _Throwable_ instead of a standalone DTO. It works
-on PHP 7.4 and later, whereas this library works only on PHP 8.0 and later.
+on PHP 7.4 and later, whereas this library works only on PHP 8.1 and later.
