@@ -4,6 +4,9 @@ namespace pmjones;
 use Throwable;
 use Exception;
 
+/**
+ * @phpstan-import-type ThrowablePropertiesArray from ThrowableProperties
+ */
 class ThrowablePropertiesTest extends \PHPUnit\Framework\TestCase
 {
     public function testBasic(): void
@@ -41,19 +44,7 @@ class ThrowablePropertiesTest extends \PHPUnit\Framework\TestCase
             $this->assertSame('{}', json_encode($e));
             $t = new ThrowableProperties($e);
 
-            /**
-             * @var array{
-             *  class: string,
-             *  message: string,
-             *  string: string,
-             *  code: int,
-             *  file: string,
-             *  line: int,
-             *  other: mixed[],
-             *  trace: string[],
-             *  previous: ThrowableProperties|null
-             *  }
-             */
+            /** @var ThrowablePropertiesArray */
             $j = json_decode((string) json_encode($t), true);
             $this->assertSame(FakeException::CLASS, $j['class']);
             $this->assertSame('fake message', $j['message']);

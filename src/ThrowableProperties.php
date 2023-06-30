@@ -6,6 +6,36 @@ use ReflectionClass;
 use Stringable;
 use Throwable;
 
+/**
+ * @phpstan-type ThrowablePropertiesArray array{
+ *     class: string,
+ *     message: string,
+ *     string: string,
+ *     code: int,
+ *     file: string,
+ *     line: int,
+ *     other: mixed[],
+ *     trace: string[],
+ *     previous: ThrowableProperties|null
+ * }
+ *
+ * @phpstan-type TraceArrayWithArgs array{
+ *     file: string,
+ *     line: int,
+ *     function: string,
+ *     class: string,
+ *     type: string,
+ *     args: mixed[]
+ * }
+ *
+ * @phpstan-type TraceArrayWithoutArgs array{
+ *     file: string,
+ *     line: int,
+ *     function: string,
+ *     class: string,
+ *     type: string
+ * }
+ */
 class ThrowableProperties implements JsonSerializable, Stringable
 {
     /**
@@ -29,16 +59,7 @@ class ThrowableProperties implements JsonSerializable, Stringable
     public readonly array $other;
 
     /**
-     * @var array<
-     *  int,
-     *  array{
-     *      file: string,
-     *      line: int,
-     *      function: string,
-     *      class: string,
-     *      type: string
-     *  }
-     * >
+     * @var array<int, TraceArrayWithoutArgs>
      */
     public readonly array $trace;
 
@@ -70,17 +91,7 @@ class ThrowableProperties implements JsonSerializable, Stringable
     }
 
     /**
-     * @return array{
-     *  class: string,
-     *  message: string,
-     *  string: string,
-     *  code: int,
-     *  file: string,
-     *  line: int,
-     *  other: mixed[],
-     *  trace: string[],
-     *  previous: ThrowableProperties|null
-     * }
+     * @return ThrowablePropertiesArray
      */
     public function jsonSerialize() : array
     {
@@ -88,33 +99,11 @@ class ThrowableProperties implements JsonSerializable, Stringable
     }
 
     /**
-     * @return array{
-     *  class: string,
-     *  message: string,
-     *  string: string,
-     *  code: int,
-     *  file: string,
-     *  line: int,
-     *  other: mixed[],
-     *  trace: string[],
-     *  previous: ThrowableProperties|null
-     * }
+     * @return ThrowablePropertiesArray
      */
     public function asArray() : array
     {
-        /**
-         * @var array{
-         *  class: string,
-         *  message: string,
-         *  string: string,
-         *  code: int,
-         *  file: string,
-         *  line: int,
-         *  other: mixed[],
-         *  trace: string[],
-         *  previous: ThrowableProperties|null
-         * }
-         */
+        /** @var ThrowablePropertiesArray */
         return get_object_vars($this);
     }
 
@@ -152,31 +141,13 @@ class ThrowableProperties implements JsonSerializable, Stringable
     }
 
     /**
-     * @return array<
-     *  int,
-     *  array{
-     *      file: string,
-     *      line: int,
-     *      function: string,
-     *      class: string,
-     *      type: string
-     *  }
-     * >
+     * @return array<int, TraceArrayWithoutArgs>
      */
     protected function getTrace(Throwable $e) : array
     {
         $trace = [];
 
-        /**
-         * @var array{
-         *  file: string,
-         *  line: int,
-         *  function: string,
-         *  class: string,
-         *  type: string,
-         *  args: mixed[]
-         * } $info
-         */
+        /** @var TraceArrayWithArgs $info */
         foreach ($e->getTrace() as $info) {
             unset($info['args']);
             $trace[] = $info;
