@@ -80,11 +80,6 @@ class ThrowableProperties implements JsonSerializable, Stringable
             : new self($e->getPrevious());
     }
 
-    public function __get(string $prop) : mixed
-    {
-        return $this->$prop;
-    }
-
     public function __toString() : string
     {
         return $this->string;
