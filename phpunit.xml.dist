@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd"
     bootstrap="phpunit.php"
 >
-  <coverage/>
+  <coverage includeUncoveredFiles="true" />
   <testsuites>
     <testsuite name="pmjones/throwable-properties">
       <directory>tests/</directory>
