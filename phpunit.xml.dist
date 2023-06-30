@@ -4,15 +4,15 @@
     xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd"
     bootstrap="phpunit.php"
 >
-  <coverage includeUncoveredFiles="true" />
-  <testsuites>
-    <testsuite name="pmjones/throwable-properties">
-      <directory>tests/</directory>
-    </testsuite>
-  </testsuites>
-  <source>
-    <include>
-      <directory suffix=".php">./src</directory>
-    </include>
-  </source>
+    <coverage includeUncoveredFiles="true" />
+    <testsuites>
+        <testsuite name="pmjones/throwable-properties">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </source>
 </phpunit>
