@@ -10,7 +10,7 @@ use Exception;
  */
 class ThrowablePropertiesTest extends \PHPUnit\Framework\TestCase
 {
-    public function testBasic(): void
+    public function testBasic() : void
     {
         try {
             $prev = new Exception('prev message');
@@ -35,7 +35,7 @@ class ThrowablePropertiesTest extends \PHPUnit\Framework\TestCase
         }
     }
 
-    public function testJsonEncode(): void
+    public function testJsonEncode() : void
     {
         try {
             $prev = new Exception('prev message');
