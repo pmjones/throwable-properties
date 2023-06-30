@@ -7,7 +7,19 @@ use Stringable;
 use Throwable;
 
 /**
- * @phpstan-type ThrowablePropertiesArray array{
+ * @phpstan-type ThrowablePropertiesAsArray array{
+ *     class: string,
+ *     message: string,
+ *     string: string,
+ *     code: int,
+ *     file: string,
+ *     line: int,
+ *     other: mixed[],
+ *     trace: string[],
+ *     previous: ThrowableProperties|null
+ * }
+ *
+ * @phpstan-type ThrowablePropertiesAsObject object{
  *     class: string,
  *     message: string,
  *     string: string,
@@ -86,7 +98,7 @@ class ThrowableProperties implements JsonSerializable, Stringable
     }
 
     /**
-     * @return ThrowablePropertiesArray
+     * @return ThrowablePropertiesAsArray
      */
     public function jsonSerialize() : array
     {
@@ -94,11 +106,11 @@ class ThrowableProperties implements JsonSerializable, Stringable
     }
 
     /**
-     * @return ThrowablePropertiesArray
+     * @return ThrowablePropertiesAsArray
      */
     public function asArray() : array
     {
-        /** @var ThrowablePropertiesArray */
+        /** @var ThrowablePropertiesAsArray */
         return get_object_vars($this);
     }
 

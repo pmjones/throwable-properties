@@ -5,7 +5,8 @@ use Throwable;
 use Exception;
 
 /**
- * @phpstan-import-type ThrowablePropertiesArray from ThrowableProperties
+ * @phpstan-import-type TraceArrayWithoutArgs from ThrowableProperties
+ * @phpstan-import-type ThrowablePropertiesAsObject from ThrowableProperties
  */
 class ThrowablePropertiesTest extends \PHPUnit\Framework\TestCase
 {
@@ -44,21 +45,23 @@ class ThrowablePropertiesTest extends \PHPUnit\Framework\TestCase
             $this->assertSame('{}', json_encode($e));
             $t = new ThrowableProperties($e);
 
-            /** @var ThrowablePropertiesArray */
-            $j = json_decode((string) json_encode($t), true);
-            $this->assertSame(FakeException::CLASS, $j['class']);
-            $this->assertSame('fake message', $j['message']);
-            $this->assertSame(88, $j['code']);
-            $this->assertSame(__FILE__, $j['file']);
-            $this->assertSame($line, $j['line']);
-            $this->assertEquals(['foo' => 'bar', 'baz' => 'dib'], $j['other']);
-            $this->assertNotEmpty($j['trace']);
-            /** @var array{file: string, line: int, function: string, class: string, type: string} $info */
-            foreach ($j['trace'] as $info) {
+            /** @var ThrowablePropertiesAsObject */
+            $j = json_decode((string) json_encode($t));
+            $this->assertSame(FakeException::CLASS, $j->class);
+            $this->assertSame('fake message', $j->message);
+            $this->assertSame(88, $j->code);
+            $this->assertSame(__FILE__, $j->file);
+            $this->assertSame($line, $j->line);
+            $this->assertEquals((object) ['foo' => 'bar', 'baz' => 'dib'], $j->other);
+            $this->assertNotEmpty($j->trace);
+
+            /** @var TraceArrayWithoutArgs $info */
+            foreach ($j->trace as $info) {
                 // @phpstan-ignore-next-line
-                $this->assertFalse(array_key_exists('args', $info));
+                $this->assertFalse(property_exists($info, 'args'));
             }
-            $this->assertNotEmpty($j['previous']);
+
+            $this->assertNotEmpty($j->previous);
         }
     }
 }
